@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logger.cs" />
+    <Compile Include="LogType.cs" />
     <Compile Include="SentinelSystemControlWatchdog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

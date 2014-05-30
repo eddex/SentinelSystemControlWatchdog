@@ -15,33 +15,52 @@ namespace SentinelSystemControlWatchdog
 
         static void Main(string[] args)
         {
-            Console.Title = "SentinelSystemControlWatchdog";
+            Initialize();
+            Start();
+        }
 
-            IntPtr windowPtr = FindWindow(null, "SentinelSystemControlWatchdog");
+        /// <summary>
+        /// Initializes the program.
+        /// </summary>
+        private static void Initialize()
+        {
+            const string windowName = "SentinelSystemControlWatchdog";
+
+            Console.Title = windowName;
 
             // Hide the window
+            IntPtr windowPtr = FindWindow(null, windowName);
             ShowWindow(windowPtr, 0); // 0 = hide, 1 = show
+        }
+
+        /// <summary>
+        /// Starts the watch dog.
+        /// </summary>
+        private static void Start()
+        {
+            long memory = 0;
 
             while (true)
             {
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-                Console.Clear();
-                long memory = 0;
                 var processes = Process.GetProcessesByName("SentinelSystemControl");
 
                 try
                 {
                     memory = processes[0].PrivateMemorySize64;
-                    Console.WriteLine("Memory used: {0}.", memory);
+                    Logger.Log(String.Format("Memory used: {0}.", memory));
                 }
                 catch (IndexOutOfRangeException)
                 {
-                    Console.WriteLine("ERROR: Process not found..");
+                    Logger.Log("Process not found!", LogType.Error);
                 }
+
                 if (memory > 100000000) // Normal usage ~52'000'000
                 {
                     processes[0].Kill();
+                    Logger.Log("SentinelSystemControl process killed!", LogType.Warning);
                 }
+
+                Thread.Sleep(TimeSpan.FromSeconds(10));
             }
         }
     }
