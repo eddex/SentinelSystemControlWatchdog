@@ -17,7 +17,6 @@ namespace SentinelSystemControlWatchdog
 
         private static void CreateLogfile()
         {
-            // Create log file
             if (!Directory.Exists(DirectoryPath))
             {
                 Directory.CreateDirectory(DirectoryPath);
