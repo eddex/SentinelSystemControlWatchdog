@@ -31,7 +31,7 @@ namespace SentinelSystemControlWatchdog
         {
             using (var logWriter = new StreamWriter(FilePath, true))
             {
-                logWriter.WriteLine("{0} - {1} - {2}", type, DateTime.Now, message);
+                logWriter.WriteLine("{0}<!>{1}<!>{2}", type, DateTime.Now, message);
             }
         }
     }

@@ -54,7 +54,7 @@ namespace SentinelSystemControlWatchdog
                     Logger.Log("Process not found!", LogType.Error);
                 }
 
-                if (memory > 100000000) // Normal usage ~52'000'000
+                if (memory > 200000000) // Normal usage ~52'000'000
                 {
                     processes[0].Kill();
                     Logger.Log("SentinelSystemControl process killed!", LogType.Warning);
